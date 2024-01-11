@@ -2,8 +2,10 @@
 let saldo = 0;
 
 // Fungsi untuk menambah saldo
-function tambahSaldo(){
-  let tambah = Number(window.prompt("Masukkan jumlah saldo yang ingin ditambahkan:"));
+function tambahSaldo() {
+  let tambah = Number(
+    window.prompt("Masukkan jumlah saldo yang ingin ditambahkan:")
+  );
   if (tambah >= 0) {
     console.log(`Tambah Saldo : ${tambah}`);
     saldo += tambah;
@@ -11,12 +13,14 @@ function tambahSaldo(){
   } else {
     window.alert("Saldo tidak valid, masukkan kembali saldonya.");
   }
-  console.log(`Saldo Akhir : ${saldo}`)
-} 
+  console.log(`Saldo Akhir : ${saldo}`);
+}
 
 // Fungsi untuk mengurangi saldo
 function kurangSaldo() {
-  let kurangi = Number(window.prompt("Masukkan jumlah saldo yang ingin dikurangi:"));
+  let kurangi = Number(
+    window.prompt("Masukkan jumlah saldo yang ingin dikurangi:")
+  );
   console.log(`Kurang Saldo : ${kurangi}`);
   if (kurangi >= 0) {
     if (kurangi <= saldo) {
@@ -28,9 +32,8 @@ function kurangSaldo() {
   } else {
     window.alert("Saldo tidak valid, masukkan kembali saldonya.");
   }
-  console.log(`Saldo Akhir : ${saldo}`)
-} 
-
+  console.log(`Saldo Akhir : ${saldo}`);
+}
 
 // Menampilkan saldo awal
 window.alert(`Saldo awal : ${saldo}`);
@@ -38,7 +41,9 @@ console.log(`Saldo awal : ${saldo}`);
 
 let repeat = true;
 do {
-  let aksi = window.prompt("=======SELAMAT DATANG DI BANK ACCOUNT=======\nSilahkan masukkan pilihan anda:\n1. Tambah Saldo\n2. Kurang Saldo\n3. Keluar");
+  let aksi = window.prompt(
+    "=======SELAMAT DATANG DI BANK ACCOUNT=======\nSilahkan masukkan pilihan anda:\n1. Tambah Saldo\n2. Kurang Saldo\n3. Keluar"
+  );
 
   switch (Number(aksi)) {
     case 1:
@@ -54,9 +59,4 @@ do {
       window.alert("Aksi tidak valid, silahkan coba lagi.");
       console.log(aksi);
   }
-  
 } while (repeat);
-
-
-
-

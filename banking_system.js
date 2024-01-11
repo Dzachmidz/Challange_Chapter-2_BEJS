@@ -1,65 +1,113 @@
 class BankAccount {
-    constructor() {
-      this.balance = 0;
-      this.transactionHistory = [];
-    }
-  
-    deposit(amount) {
-      return new Promise((resolve, reject) => {
+  constructor() {
+    this.saldo = 0;
+    this.balance = [];
+  }
+
+  async deposit() {
+    let jumlah = Number(window.prompt("Masukkan jumlah deposit:"));
+    setTimeout(() => {
+      window.alert(`Deposit sebesar : ${jumlah}`);
+    }, 1000);
+    setTimeout(() => {
+      console.log(`Deposit sebesar : ${jumlah}`);
+    }, 1000);
+
+    await new Promise((resolve, reject) => {
+      if (jumlah >= 0) {
         setTimeout(() => {
-          if (amount >= 0) {
-            this.balance += amount;
-            this.transactionHistory.push(`Deposit ${amount}`);
-            resolve(`Saldo berhasil ditambahkan ${amount}. Saldo Anda saat ini: ${this.balance}`);
-          } else {
-            reject('Saldo tidak valid, masukkan kembali saldonya.');
-          }
-        }, 3000); // Simulasikan operasi asynchronous dengan menunda eksekusi selama 3 detik
+          this.saldo += jumlah;
+          this.balance.push(jumlah);
+          resolve(
+            `Berhasil menambahkan saldo sebesar: ${jumlah}.\nSaldo anda saat ini: ${this.saldo}`
+          );
+        }, 3000);
+      } else {
+        reject(
+          "Saldo anda tidak valid, silahkan masukkan kembali nominal anda!"
+        );
+      }
+    })
+      .then((message) => {
+        console.log(message);
+        window.alert(message);
+      })
+      .catch((error) => {
+        console.error(error);
+        window.alert(error);
       });
-    }
-  
-    withdraw(amount) {
-      return new Promise((resolve, reject) => {
+  }
+
+  async withdraw() {
+    let jumlah = Number(window.prompt("Masukkan jumlah penarikan:"));
+    setTimeout(() => {
+      window.alert(`Withdraw sebesar : ${jumlah}`);
+    }, 1000);
+    setTimeout(() => {
+      console.log(`Withdraw sebesar : ${jumlah}`);
+    }, 1000);
+
+    await new Promise((resolve, reject) => {
+      if (jumlah >= 0 && jumlah <= this.saldo) {
         setTimeout(() => {
-          if (amount >= 0 && amount <= this.balance) {
-            this.balance -= amount;
-            this.transactionHistory.push(`Withdrawal ${amount}`);
-            resolve(`Saldo berhasil dikurangi ${amount}. Saldo Anda saat ini: ${this.balance}`);
-          } else {
-            reject('Saldo tidak valid atau jumlah yang ingin dikurangi melebihi saldo saat ini.');
-          }
-        }, 5000); // Simulasikan operasi asynchronous dengan menunda eksekusi selama 5 detik
+          this.saldo -= jumlah;
+          this.balance.push(jumlah);
+          resolve(
+            `Berhasil mengurangi saldo sebesar: ${jumlah}.\nSaldo anda saat ini: ${this.saldo}`
+          );
+        }, 3000);
+      } else {
+        reject(
+          "Nominal melebihi saldo saat ini, silahkan masukkan kembali nominal anda!"
+        );
+      }
+    })
+      .then((message) => {
+        console.log(message);
+        window.alert(message);
+      })
+      .catch((error) => {
+        console.error(error);
+        window.alert(error);
       });
+  }
+}
+
+async function main() {
+  const saldobank = new BankAccount();
+
+  console.log(`Saldo awal anda: ${saldobank.saldo}`);
+  window.alert(`Saldo awal anda: ${saldobank.saldo}`);
+
+  let repeat = true;
+
+  while (repeat) {
+    let aksi = window.prompt("Pilih tindakan:\n1. Deposit\n2. Withdraw\n3. Keluar");
+
+    if (aksi === null) {
+      window.alert("Terimakasih, silahkan datang kembali!");
+      repeat = false;
+      break;
     }
-  
-    getBalance() {
-      return this.balance;
-    }
-  
-    getTransactionHistory() {
-      return this.transactionHistory;
+
+    aksi = Number(aksi);
+
+    switch (aksi) {
+      case 1:
+        await saldobank.deposit();
+        break;
+      case 2:
+        await saldobank.withdraw();
+        break;
+      case 3:
+        window.alert("Terimakasih, silahkan datang kembali!");
+        repeat = false;
+        break;
+      default:
+        window.alert("Pilihan tidak valid. Silahkan coba lagi.");
+        break;
     }
   }
-  
-const account = new BankAccount();
+}
 
-// Simulate a deposit
-account.deposit(5000)
-  .then((message) => {
-    console.log(message);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-// Simulate a withdrawal
-account.withdraw(2000)
-  .then((message) => {
-    console.log(message);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-// Get the current balance
-console.log(`Saldo saat ini: ${account.getBalance()}`);
+main();
